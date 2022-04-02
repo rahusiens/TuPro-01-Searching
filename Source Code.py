@@ -1,6 +1,5 @@
 import random
 import math
-import copy
 import time
 
 start_time = time.time()
@@ -47,12 +46,11 @@ def dekode_kromosom(kromosom: int):
 def fitness(kromosom: int):
     # Menghitung nilai fitness dari satu kromosom
     x, y = dekode_kromosom(kromosom)
-    return 1 / ( ((math.cos(x) + math.sin(y))**2 / (x**2 + y**2)) + 0.01 )
+    return 1 / ( h(kromosom) + 0.01 )
 
-def fungsi(kromosom: int):
+def h(kromosom: int):
     x, y = dekode_kromosom(kromosom)
     return (math.cos(x) + math.sin(y))**2 / (x**2 + y**2)
-
 
 def pemilihan_orangtua(populasi):
     # Memilih dua orangtua berbeda dari populasi
@@ -139,7 +137,7 @@ def evolusi(generation_limit: int, ukuran_populasi: int, panjang_kromosom: int, 
 
 
 
-populasi, generasi = evolusi(generation_limit=100, ukuran_populasi=100, panjang_kromosom=10, fitness_limit=99.999997)
+populasi, generasi = evolusi(generation_limit=100, ukuran_populasi=100, panjang_kromosom=10, fitness_limit=99.99999)
 
 print()
 print("====================HASIL====================")
@@ -148,7 +146,7 @@ print("          ", populasi[0][1])
 print("    X    :", dekode_kromosom(populasi[0])[0])
 print("    Y    :", dekode_kromosom(populasi[0])[1])
 print()
-print(" h(x, y) :", fungsi(populasi[0]))
+print(" h(x, y) :", h(populasi[0]))
 print(" Fitness :", fitness(populasi[0]))
 print()
 print("Generasi :", generasi)
